@@ -20,4 +20,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency("assert", ["~> 2.10"])
 
+  gem.add_dependency("sanford", ["~> 0.9"])
+  gem.add_dependency("nm")
+
 end
