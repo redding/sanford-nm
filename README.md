@@ -1,10 +1,26 @@
 # Sanford::Nm
 
-TODO: Write a gem description
+Sanford [template engine](https://github.com/redding/sanford) for rendering [Nm](https://github.com/redding/nm) templates
 
 ## Usage
 
-TODO: Write code samples and usage instructions here
+Register the engine:
+
+```ruby
+# in config/services.rb or wherever
+require 'sanford'
+require 'sanford-nm'
+
+Sanford.configure do |c|
+
+  c.template_source "/path/to/templates") do |s|
+    s.engine 'nm', Sanford::Nm::TemplateEngine
+  end
+
+end
+```
+
+Add `.nm` to any template files in your template source path.  Sanford will render their content using Nm when they are rendered.
 
 ## Installation
 
