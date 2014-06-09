@@ -5,7 +5,7 @@ gemspec
 gem 'rake'
 gem 'pry'
 gem 'bson_ext'
-gem 'sanford', :github => "redding/sanford", :branch => "kr-render"
+gem 'sanford', :github => "redding/sanford", :branch => "master"
 
 platform :rbx do
   gem 'rubysl'

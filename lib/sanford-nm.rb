@@ -6,18 +6,24 @@ module Sanford::Nm
 
   class TemplateEngine < Sanford::TemplateEngine
 
-    DEFAULT_SCOPE_NAME = 'view'
+    DEFAULT_HANDLER_LOCAL = 'view'
 
     def nm_source
       @nm_source ||= Nm::Source.new(self.source_path)
     end
 
-    def nm_scope_name
-      @nm_scope_name ||= (self.opts['scope_name'] || DEFAULT_SCOPE_NAME)
+    def nm_handler_local
+      @nm_handler_local ||= (self.opts['handler_local'] || DEFAULT_HANDLER_LOCAL)
     end
 
-    def render(path, scope)
-      self.nm_source.render(path, self.nm_scope_name => scope)
+    def render(path, service_handler, locals)
+      self.nm_source.render(path, render_locals(service_handler, locals))
+    end
+
+    private
+
+    def render_locals(service_handler, locals)
+      { self.nm_handler_local => service_handler }.merge(locals)
     end
 
   end
