@@ -1,0 +1,4 @@
+node('thing') {
+  node('id', view.identifier)
+  node('name', view.name)
+}
