@@ -15,7 +15,7 @@ class Sanford::Nm::TemplateEngine
     end
     subject{ @engine }
 
-    should have_imeths :nm_source, :nm_scope_name
+    should have_imeths :nm_source, :nm_handler_local
 
     should "be a Sanford template engine" do
       assert_kind_of Sanford::TemplateEngine, subject
@@ -28,21 +28,25 @@ class Sanford::Nm::TemplateEngine
       assert_same subject.nm_source, subject.nm_source
     end
 
-    should "use 'view' as the scope name by default" do
-      assert_equal 'view', subject.nm_scope_name
+    should "use 'view' as the handler local name by default" do
+      assert_equal 'view', subject.nm_handler_local
     end
 
-    should "allow custom scope names" do
-      scope_name = Factory.string
-      engine = Sanford::Nm::TemplateEngine.new('scope_name' => scope_name)
-      assert_equal scope_name, engine.nm_scope_name
+    should "allow custom handler local names" do
+      handler_local = Factory.string
+      engine = Sanford::Nm::TemplateEngine.new('handler_local' => handler_local)
+      assert_equal handler_local, engine.nm_handler_local
     end
 
     should "render nm template files" do
-      thing = OpenStruct.new(:identifier => Factory.integer, :name => Factory.string)
-      exp = Factory.template_json_rendered(thing)
+      service_handler = OpenStruct.new({
+        :identifier => Factory.integer,
+        :name => Factory.string
+      })
+      locals = { 'local1' => Factory.string }
+      exp = Factory.template_json_rendered(service_handler, locals)
 
-      assert_equal exp, subject.render('template.json', thing)
+      assert_equal exp, subject.render('template.json', service_handler, locals)
     end
 
   end

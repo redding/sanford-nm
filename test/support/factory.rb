@@ -3,10 +3,11 @@ require 'assert/factory'
 module Factory
   extend Assert::Factory
 
-  def self.template_json_rendered(scope)
+  def self.template_json_rendered(service_handler, locals)
     { 'thing' => {
-        'id' => scope.identifier,
-        'name' => scope.name
+        'id' => service_handler.identifier,
+        'name' => service_handler.name,
+        'local1' => locals['local1']
       }
     }
   end
