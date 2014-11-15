@@ -15,11 +15,10 @@ class Sanford::Nm::TemplateEngine
     end
     subject{ @engine }
 
-    should have_imeths :nm_source, :nm_handler_local
+    should have_imeths :nm_source, :nm_handler_local, :render
 
     should "be a Sanford template engine" do
       assert_kind_of Sanford::TemplateEngine, subject
-      assert_respond_to 'render', subject
     end
 
     should "memoize its Nm source" do
