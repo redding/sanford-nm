@@ -1,13 +1,12 @@
 # Sanford::Nm
 
-Sanford [template engine](https://github.com/redding/sanford) for rendering [Nm](https://github.com/redding/nm) templates
+[Sanford](https://github.com/redding/sanford) template engine for rendering [Nm](https://github.com/redding/nm) templates
 
 ## Usage
 
 Register the engine:
 
 ```ruby
-# in config/services.rb or wherever
 require 'sanford'
 require 'sanford-nm'
 
@@ -31,6 +30,7 @@ Nm doesn't allow overriding the template scope but instead allows you to pass in
     s.engine 'nm', Sanford::Nm::TemplateEngine, 'handler_local' => 'service_handler'
   end
 ```
+
 ## Installation
 
 Add this line to your application's Gemfile:
