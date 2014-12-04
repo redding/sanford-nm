@@ -15,7 +15,8 @@ class Sanford::Nm::TemplateEngine
     end
     subject{ @engine }
 
-    should have_imeths :nm_source, :nm_handler_local, :render
+    should have_imeths :nm_source, :nm_handler_local, :nm_logger_local
+    should have_imeths :render
 
     should "be a Sanford template engine" do
       assert_kind_of Sanford::TemplateEngine, subject
@@ -37,13 +38,23 @@ class Sanford::Nm::TemplateEngine
       assert_equal handler_local, engine.nm_handler_local
     end
 
+    should "use 'logger' as the logger local name by default" do
+      assert_equal 'logger', subject.nm_logger_local
+    end
+
+    should "allow custom logger local names" do
+      logger_local = Factory.string
+      engine = Sanford::Nm::TemplateEngine.new('logger_local' => logger_local)
+      assert_equal logger_local, engine.nm_logger_local
+    end
+
     should "render nm template files" do
       service_handler = OpenStruct.new({
         :identifier => Factory.integer,
         :name => Factory.string
       })
       locals = { 'local1' => Factory.string }
-      exp = Factory.template_json_rendered(service_handler, locals)
+      exp = Factory.template_json_rendered(subject, service_handler, locals)
 
       assert_equal exp, subject.render('template.json', service_handler, locals)
     end
