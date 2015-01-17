@@ -9,3 +9,5 @@ gem 'bson_ext'
 platform :rbx do
   gem 'rubysl'
 end
+
+gem 'nm', :path => "/Users/kelly/projects/redding/nm"
