@@ -31,6 +31,14 @@ Nm doesn't allow overriding the template scope but instead allows you to pass in
   end
 ```
 
+Nm doesn't cache templates by default.  To enable caching, pass a `'cache'` option when registering:
+
+```ruby
+  c.template_source "/path/to/templates" do |s|
+    s.engine 'nm', Sanford::Nm::TemplateEngine, 'cache' => true
+  end
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
