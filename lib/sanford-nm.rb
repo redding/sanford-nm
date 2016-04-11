@@ -12,6 +12,7 @@ module Sanford::Nm
     def nm_source
       @nm_source ||= Nm::Source.new(self.source_path, {
         :cache  => self.opts['cache'],
+        :ext    => self.opts['ext'],
         :locals => { self.nm_logger_local => self.logger }
       })
     end

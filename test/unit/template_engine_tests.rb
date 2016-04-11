@@ -10,7 +10,8 @@ class Sanford::Nm::TemplateEngine
     desc "Sanford::Nm::TemplateEngine"
     setup do
       @engine = Sanford::Nm::TemplateEngine.new({
-        'source_path' => TEST_SUPPORT_PATH
+        'source_path' => TEST_SUPPORT_PATH,
+        'ext'         => 'nm'
       })
     end
     subject{ @engine }
@@ -43,6 +44,12 @@ class Sanford::Nm::TemplateEngine
       assert_kind_of Hash, engine.nm_source.cache
     end
 
+    should "pass any given ext option to the Nm source" do
+      ext = Factory.string
+      engine = Sanford::Nm::TemplateEngine.new('ext' => ext)
+      assert_equal ".#{ext}", engine.nm_source.ext
+    end
+
     should "use 'logger' as the logger local name by default" do
       assert_equal 'logger', subject.nm_logger_local
     end
@@ -56,11 +63,10 @@ class Sanford::Nm::TemplateEngine
     should "render nm template files" do
       service_handler = OpenStruct.new({
         :identifier => Factory.integer,
-        :name => Factory.string
+        :name       => Factory.string
       })
       locals = { 'local1' => Factory.string }
       exp = Factory.template_json_rendered(subject, service_handler, locals)
-
       assert_equal exp, subject.render('template.json', service_handler, locals)
     end
 
