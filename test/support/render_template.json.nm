@@ -1,0 +1,6 @@
+node 'thing' do
+  node 'id',     view.identifier
+  node 'name',   view.name
+  node 'local1', local1
+  node 'logger', logger.to_s
+end
