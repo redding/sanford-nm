@@ -29,6 +29,10 @@ module Sanford::Nm
       self.nm_source.render(path, render_locals(service_handler, locals))
     end
 
+    def partial(path, locals)
+      self.nm_source.partial(path, locals)
+    end
+
     private
 
     def render_locals(service_handler, locals)

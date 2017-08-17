@@ -1,0 +1,4 @@
+node 'thing' do
+  node 'local1', local1
+  node 'logger', logger.to_s
+end

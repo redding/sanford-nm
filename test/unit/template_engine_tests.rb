@@ -17,7 +17,7 @@ class Sanford::Nm::TemplateEngine
     subject{ @engine }
 
     should have_imeths :nm_source, :nm_handler_local, :nm_logger_local
-    should have_imeths :render
+    should have_imeths :render, :partial
 
     should "be a Sanford template engine" do
       assert_kind_of Sanford::TemplateEngine, subject
@@ -66,8 +66,14 @@ class Sanford::Nm::TemplateEngine
         :name       => Factory.string
       })
       locals = { 'local1' => Factory.string }
-      exp = Factory.template_json_rendered(subject, service_handler, locals)
-      assert_equal exp, subject.render('template.json', service_handler, locals)
+      exp = Factory.render_template_json_rendered(subject, service_handler, locals)
+      assert_equal exp, subject.render('render_template.json', service_handler, locals)
+    end
+
+    should "render nm partial template files" do
+      locals = { 'local1' => Factory.string }
+      exp    = Factory.partial_template_json_rendered(subject, locals)
+      assert_equal exp, subject.partial('partial_template.json', locals)
     end
 
   end
